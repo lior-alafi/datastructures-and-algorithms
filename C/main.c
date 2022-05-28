@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
 void avlRoutine()
 {
-    struct Node *root;
+    struct Node *root = NULL;
     root = insert(root,5);
     root = insert(root,2);
     root = insert(root,7);
@@ -33,10 +33,7 @@ void avlRoutine()
     // root = deleteNode(root,2);
     inOrderVist(root);
     printf("\n");
-    for(int i = 0; i < 9;++i)
-    {
-        root = deleteNode(root,i);
-    }
+    clear(&root);
 }
 
 void listRoutine()

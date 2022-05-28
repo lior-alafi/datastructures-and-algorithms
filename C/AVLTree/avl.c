@@ -21,8 +21,11 @@ int getHeight(struct Node *n)
     {
         return 0;
     }
-    return max(getHeight(n->_left), getHeight(n->_right)) + 1;
+    n->height = max(getHeight(n->_left), getHeight(n->_right)) + 1;
+    return n->height;
 }
+
+
 int getBalance(struct Node *n)
 {
     if (n == NULL)
@@ -130,12 +133,15 @@ struct Node *deleteNode(struct Node *x, int value)
     {
         struct Node *tmp = (x == NULL)? x : x->_left;
         free(x);
+        getHeight(tmp);
         return tmp;
     }
     else if (x->_left == NULL)
     {
         struct Node *tmp = (x == NULL)? x : x->_right;
         free(x);
+        getHeight(tmp);
+
         return tmp;
     }
 
@@ -178,4 +184,18 @@ void inOrderVist(struct Node *n)
     inOrderVist(n->_left);
     printf("%d ", n->data);
     inOrderVist(n->_right);
+}
+
+
+void clear(struct Node **root)
+{
+
+    if(*root == NULL) 
+    {
+        return;
+    }
+    clear(&((*root)->_left));
+    clear(&((*root)->_right));
+    free(*root);
+
 }

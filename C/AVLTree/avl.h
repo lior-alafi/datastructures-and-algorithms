@@ -15,3 +15,4 @@ struct Node * rotateRight(struct Node *y);
 struct Node* insert(struct Node* n,int value);
 struct Node* deleteNode(struct Node *n,int value);
 void inOrderVist(struct Node *n);
+void clear(struct Node **root);
