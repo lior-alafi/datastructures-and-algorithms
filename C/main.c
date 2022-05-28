@@ -5,6 +5,8 @@
 
 void listRoutine();
 void avlRoutine();
+void* Int(int v);
+int intCompare(const void *lhs,const void *rhs);
 
 int main(int argc, char *argv[])
 {
@@ -17,23 +19,47 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+
+void* Int(int v) {
+   int *ptr = malloc(sizeof(int));
+   *ptr = v;
+   return ptr;
+}
+int intCompare(const void *lhs,const void *rhs) {
+    if (*((int*)lhs) < *((int*)rhs))
+    {
+        return -1;
+    } else if (*((int*)lhs) > *((int*)rhs))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+char * int2str(const void *v)
+{
+    char *s = malloc(sizeof(char)*30);
+    sprintf(s,"%d",*((int*)v));
+    return s;
+}
+
 void avlRoutine()
 {
     struct Node *root = NULL;
-    root = insert(root,5);
-    root = insert(root,2);
-    root = insert(root,7);
-    root = insert(root,1);
-    root = insert(root,6);
-    root = insert(root,8);
-    root = insert(root,4);
-    root = insert(root,3);
-    inOrderVist(root);
+    root = insert(root,Int(5),intCompare);
+    root = insert(root,Int(2),intCompare);
+    root = insert(root,Int(7),intCompare);
+    root = insert(root,Int(1),intCompare);
+    root = insert(root,Int(6),intCompare);
+    root = insert(root,Int(8),intCompare);
+    root = insert(root,Int(4),intCompare);
+    root = insert(root,Int(3),intCompare);
+    inOrderVist(root,int2str);
     printf("\n");
     // root = deleteNode(root,2);
-    inOrderVist(root);
     printf("\n");
-    clear(&root);
+    clear(&root,1);
 }
 
 void listRoutine()
