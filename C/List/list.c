@@ -9,7 +9,13 @@ struct list* init()
     l->size = 0;
     return l;
 }
+
 void add(struct list *l,int value) {
+    l->head = newNode(value,l->head);
+    ++(l->size);
+}
+
+void addToEnd(struct list *l,int value) {
     struct node **curr = &l->head;
     while(*curr != NULL)
     {
@@ -61,4 +67,29 @@ void printList(struct list *l)
         curr = curr->_next;
     }
     printf("|\n");
+}
+
+void reverse(struct list *l)
+{
+    if(l == NULL)
+    {
+        return;
+    }
+    struct node *prev=NULL,
+                *curr = l->head;
+                // *next = NULL;
+    while(curr != NULL)
+    {
+        /*
+            just reverse the current each time, no need for next->next (if it even exists)
+            i.e:
+            1->|
+          p c  n  => c->p => p=c,c =n
+        */
+        struct node *next = curr->_next;
+        curr->_next = prev;
+        prev = curr;
+        curr = next;
+    }
+    l->head = prev;
 }

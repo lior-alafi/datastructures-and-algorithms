@@ -14,8 +14,8 @@ int main(int argc, char *argv[])
     {
         printf("%s VERSION %d.%d\n", argv[0], Tutorial_VERSION_MAJOR, Tutorial_VERSION_MINOR);
     }
-    // listRoutine();
-    avlRoutine();
+    listRoutine();
+    // avlRoutine();
     return 0;
 }
 
@@ -71,6 +71,12 @@ void listRoutine()
     add(l, 2);
     add(l, 3);
     add(l, 4);
+    addToEnd(l,0);
+    printList(l);
+
+    reverse(l);
+    printList(l);
+    reverse(l);
     printList(l);
     struct node **n;
 
@@ -84,6 +90,8 @@ void listRoutine()
     n = find(l, 3);
 
     n = find(l, 1);
+    removeNode(l, n);
+    n = find(l, 0);
     removeNode(l, n);
     free(l);
 }

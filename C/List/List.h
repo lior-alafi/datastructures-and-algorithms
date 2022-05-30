@@ -15,8 +15,10 @@ struct list {
 
 
 struct list* init();
+void addToEnd(struct list *l,int value);
 void add(struct list *l,int value);
 struct node* newNode(int value, struct node *next);
 struct node **find(struct list *l,int value);
 void removeNode(struct list *l,struct node **n);
 void printList(struct list *l);
+void reverse(struct list *l);
