@@ -82,44 +82,39 @@ void listRoutine()
     printList(l,int2str);
     struct node **n;
 
-    int findme = 4;
-    n = find(l, &findme,intCompare);
-    free((*n)->data);
-    removeNode(l, n);
-    printList(l,int2str);
+    // int findme = 4;
+    // n = find(l, &findme,intCompare);
+    // free((*n)->data);
+    // removeNode(l, n);
+    // printList(l,int2str);
 
-    findme = 2;
-     n = find(l, &findme,intCompare);
-    free((*n)->data);
-    removeNode(l, n);
-    printList(l,int2str);
-    findme = 3;
-     n = find(l, &findme,intCompare);
-    free((*n)->data);
-    removeNode(l, n);
-    printList(l,int2str);
-    findme = 1;
-     n = find(l, &findme,intCompare);
-    free((*n)->data);
-    removeNode(l, n);
-    printList(l,int2str);
-    findme = 0;
-     n = find(l, &findme,intCompare);
-    free((*n)->data);
-    removeNode(l, n);
-    printList(l,int2str);
+    // findme = 2;
+    //  n = find(l, &findme,intCompare);
+    // free((*n)->data);
+    // removeNode(l, n);
+    // printList(l,int2str);
+    // findme = 3;
+    //  n = find(l, &findme,intCompare);
+    // free((*n)->data);
+    // removeNode(l, n);
+    // printList(l,int2str);
+    // findme = 1;
+    //  n = find(l, &findme,intCompare);
+    // free((*n)->data);
+    // removeNode(l, n);
+    // printList(l,int2str);
+    // findme = 0;
+    //  n = find(l, &findme,intCompare);
+    // free((*n)->data);
+    // removeNode(l, n);
+    // printList(l,int2str);
 
-    findme = 13;
-    n = find(l, &findme,intCompare);
+    // findme = 13;
+    // n = find(l, &findme,intCompare);
     
-    removeNode(l, n);
-    free(p);
-
-    // n = find(l, 3,intCompare);
-
-    // n = find(l, 1,intCompare);
     // removeNode(l, n);
-    // n = find(l, 0,intCompare);
-    // removeNode(l, n);
+    // free(p);
+
+    clearList(l,1);
     free(l);
 }

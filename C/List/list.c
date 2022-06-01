@@ -95,3 +95,24 @@ void reverse(struct list *l)
     }
     l->head = prev;
 }
+
+
+void clearList(struct list *l,int deleteValues)
+{
+    if(!l) 
+    {
+        return;
+    }
+
+    while (l->head != NULL)
+    {
+        struct node *tmp = l->head;
+        l->head = l->head->_next;
+        if(deleteValues)
+        {
+            free(tmp->data);
+        }
+        free(tmp);
+    }
+    
+}

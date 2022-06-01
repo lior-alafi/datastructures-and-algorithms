@@ -22,3 +22,4 @@ struct node **find(struct list *l,void* value,int (*compar)(const void* lhs, con
 void removeNode(struct list *l,struct node **n);
 void printList(struct list *l,char *(*toStr)(const void *x));
 void reverse(struct list *l);
+void clearList(struct list *l,int deleteValues);
