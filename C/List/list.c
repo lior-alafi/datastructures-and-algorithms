@@ -10,12 +10,12 @@ struct list* init()
     return l;
 }
 
-void add(struct list *l,int value) {
+void add(struct list *l,void* value) {
     l->head = newNode(value,l->head);
     ++(l->size);
 }
 
-void addToEnd(struct list *l,int value) {
+void addToEnd(struct list *l,void* value) {
     struct node **curr = &l->head;
     while(*curr != NULL)
     {
@@ -26,18 +26,18 @@ void addToEnd(struct list *l,int value) {
     *curr = newNode(value,NULL);
     ++(l->size);
 }
-struct node* newNode(int value, struct node *next) {
+struct node* newNode(void* value, struct node *next) {
     struct node *n = malloc(sizeof(struct node));
     n->data = value;
     n->_next = next;
     return n;
 }
-struct node **find(struct list *l,int value)
+struct node **find(struct list *l,void* value,int (*compar)(const void* lhs,const void* rhs))
 {
         struct node **curr = &l->head;
         while(*curr != NULL)
         {
-            if((*curr)->data == value){
+            if(!compar((*curr)->data,value)){
                 return curr;
             }
             curr = &((*curr)->_next);           
@@ -56,14 +56,16 @@ void removeNode(struct list *l,struct node **n){
 }
 
 
-void printList(struct list *l)
+void printList(struct list *l,char *(*toStr)(const void *x))
 {
     if(l == NULL || l->head == NULL) return;
 
     struct node *curr = l->head;
     while(curr != NULL)
     {
-        printf("%d->",curr->data);
+        char *buff = toStr(curr->data);
+        printf("%s->",buff);
+        free(buff);
         curr = curr->_next;
     }
     printf("|\n");

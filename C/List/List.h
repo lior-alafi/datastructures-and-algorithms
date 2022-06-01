@@ -3,7 +3,7 @@
 
 struct node {
   struct node *_next;
-  int data;
+  void *data;
 };
 
 
@@ -15,10 +15,10 @@ struct list {
 
 
 struct list* init();
-void addToEnd(struct list *l,int value);
-void add(struct list *l,int value);
-struct node* newNode(int value, struct node *next);
-struct node **find(struct list *l,int value);
+void addToEnd(struct list *l,void* value);
+void add(struct list *l,void* value);
+struct node* newNode(void* value, struct node *next);
+struct node **find(struct list *l,void* value,int (*compar)(const void* lhs, const void* rhs));
 void removeNode(struct list *l,struct node **n);
-void printList(struct list *l);
+void printList(struct list *l,char *(*toStr)(const void *x));
 void reverse(struct list *l);
