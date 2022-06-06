@@ -113,6 +113,7 @@ void clearList(struct list *l,int deleteValues)
             free(tmp->data);
         }
         free(tmp);
+        --(l->size);
     }
     
 }

@@ -6,6 +6,7 @@ project(Tutorial VERSION 1.03)
 configure_file(cfgs.h.in cfgs.h)
 add_subdirectory(List)
 add_subdirectory(AVLTree)
+add_subdirectory(hashtable)
 add_executable(Tutorial main.c)
 
 
