@@ -12,8 +12,8 @@ add_executable(Tutorial main.c)
 
 # add the executable
 target_link_libraries(Tutorial PUBLIC List AVLTree)
-# target_link_libraries(Tutorial PUBLIC List)
-
+target_link_libraries(Tutorial PUBLIC List)
+target_link_libraries(Tutorial PUBLIC hashtable)
 target_include_directories(Tutorial PUBLIC
                            "${PROJECT_BINARY_DIR}"
                            "${PROJECT_SOURCE_DIR}"

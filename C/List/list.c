@@ -2,21 +2,21 @@
 #include "List.h"
 #include <stdio.h>
 
-struct list* init()
+struct list_t* init()
 {
-    struct list *l = malloc(sizeof(struct list));
+    struct list_t *l = malloc(sizeof(struct list_t));
     l->head = NULL;
     l->size = 0;
     return l;
 }
 
-void add(struct list *l,void* value) {
+void add(struct list_t *l,void* value) {
     l->head = newNode(value,l->head);
     ++(l->size);
 }
 
-void addToEnd(struct list *l,void* value) {
-    struct node **curr = &l->head;
+void addToEnd(struct list_t *l,void* value) {
+    struct node_t **curr = &l->head;
     while(*curr != NULL)
     {
 
@@ -26,15 +26,15 @@ void addToEnd(struct list *l,void* value) {
     *curr = newNode(value,NULL);
     ++(l->size);
 }
-struct node* newNode(void* value, struct node *next) {
-    struct node *n = malloc(sizeof(struct node));
+struct node_t* newNode(void* value, struct node_t *next) {
+    struct node_t *n = malloc(sizeof(struct node_t));
     n->data = value;
     n->_next = next;
     return n;
 }
-struct node **find(struct list *l,void* value,int (*compar)(const void* lhs,const void* rhs))
+struct node_t **find(struct list_t *l,void* value,int (*compar)(const void* lhs,const void* rhs))
 {
-        struct node **curr = &l->head;
+        struct node_t **curr = &l->head;
         while(*curr != NULL)
         {
             if(!compar((*curr)->data,value)){
@@ -47,20 +47,20 @@ struct node **find(struct list *l,void* value,int (*compar)(const void* lhs,cons
         return NULL;
 
 }
-void removeNode(struct list *l,struct node **n){
+void removeNode(struct list_t *l,struct node_t **n){
     if(n == NULL || *n == NULL) return;
-    struct node *tmp = *n;
+    struct node_t *tmp = *n;
     *n = ((*n)->_next);
     free(tmp);
     --l->size;
 }
 
 
-void printList(struct list *l,char *(*toStr)(const void *x))
+void printList(struct list_t *l,char *(*toStr)(const void *x))
 {
     if(l == NULL || l->head == NULL) return;
 
-    struct node *curr = l->head;
+    struct node_t *curr = l->head;
     while(curr != NULL)
     {
         char *buff = toStr(curr->data);
@@ -71,13 +71,13 @@ void printList(struct list *l,char *(*toStr)(const void *x))
     printf("|\n");
 }
 
-void reverse(struct list *l)
+void reverse(struct list_t *l)
 {
     if(l == NULL)
     {
         return;
     }
-    struct node *prev=NULL,
+    struct node_t *prev=NULL,
                 *curr = l->head;
                 // *next = NULL;
     while(curr != NULL)
@@ -88,7 +88,7 @@ void reverse(struct list *l)
             1->|
           p c  n  => c->p => p=c,c =n
         */
-        struct node *next = curr->_next;
+        struct node_t *next = curr->_next;
         curr->_next = prev;
         prev = curr;
         curr = next;
@@ -97,7 +97,7 @@ void reverse(struct list *l)
 }
 
 
-void clearList(struct list *l,int deleteValues)
+void clearList(struct list_t *l,int deleteValues)
 {
     if(!l) 
     {
@@ -106,7 +106,7 @@ void clearList(struct list *l,int deleteValues)
 
     while (l->head != NULL)
     {
-        struct node *tmp = l->head;
+        struct node_t *tmp = l->head;
         l->head = l->head->_next;
         if(deleteValues)
         {

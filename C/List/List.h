@@ -1,25 +1,31 @@
+#ifndef LIST_H
+#define LIST_H
+
 #include <stdlib.h>
 
 
-struct node {
-  struct node *_next;
+
+struct node_t {
+  struct node_t *_next;
   void *data;
 };
 
 
-struct list {
+struct list_t {
  int size;
- struct node *head;
+ struct node_t *head;
 };
 
 
 
-struct list* init();
-void addToEnd(struct list *l,void* value);
-void add(struct list *l,void* value);
-struct node* newNode(void* value, struct node *next);
-struct node **find(struct list *l,void* value,int (*compar)(const void* lhs, const void* rhs));
-void removeNode(struct list *l,struct node **n);
-void printList(struct list *l,char *(*toStr)(const void *x));
-void reverse(struct list *l);
-void clearList(struct list *l,int deleteValues);
+struct list_t* init();
+void addToEnd(struct list_t *l,void* value);
+void add(struct list_t *l,void* value);
+struct node_t* newNode(void* value, struct node_t *next);
+struct node_t **find(struct list_t *l,void* value,int (*compar)(const void* lhs, const void* rhs));
+void removeNode(struct list_t *l,struct node_t **n);
+void printList(struct list_t *l,char *(*toStr)(const void *x));
+void reverse(struct list_t *l);
+void clearList(struct list_t *l,int deleteValues);
+
+#endif

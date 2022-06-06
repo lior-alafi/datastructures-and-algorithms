@@ -1,9 +1,9 @@
 #include "avl.h"
 #include <stdlib.h>
 
-struct Node *newBSTNode(void *value)
+struct Node_t *newBSTNode(void *value)
 {
-    struct Node *n = malloc(sizeof(struct Node));
+    struct Node_t *n = malloc(sizeof(struct Node_t));
 
     n->data = value;
     n->height = 1;
@@ -15,7 +15,7 @@ int max(int lhs, int rhs)
     return lhs >= rhs ? lhs : rhs;
 }
 
-int getHeight(struct Node *n)
+int getHeight(struct Node_t *n)
 {
     if (n == NULL)
     {
@@ -26,7 +26,7 @@ int getHeight(struct Node *n)
 }
 
 
-int getBalance(struct Node *n)
+int getBalance(struct Node_t *n)
 {
     if (n == NULL)
     {
@@ -37,9 +37,9 @@ int getBalance(struct Node *n)
 }
 
 
-struct Node *rotateLeft(struct Node *x)
+struct Node_t *rotateLeft(struct Node_t *x)
 {
-    struct Node *T1, *T2, *T3, *y;
+    struct Node_t *T1, *T2, *T3, *y;
     y = x->_right;
     T1 = x->_left;
     T2 = y->_left;
@@ -55,9 +55,9 @@ struct Node *rotateLeft(struct Node *x)
     return y;
 }
 
-struct Node *rotateRight(struct Node *y)
+struct Node_t *rotateRight(struct Node_t *y)
 {
-    struct Node *T1, *T2, *T3, *x;
+    struct Node_t *T1, *T2, *T3, *x;
 
     x = y->_left;
     T1 = x->_left;
@@ -72,7 +72,7 @@ struct Node *rotateRight(struct Node *y)
     return x;
 }
 
-struct Node *insert(struct Node *n, void *value,int (*compar)(const void *lhs,const void *rhs))
+struct Node_t *insert(struct Node_t *n, void *value,int (*compar)(const void *lhs,const void *rhs))
 {
     if (n == NULL)
     {
@@ -112,13 +112,13 @@ struct Node *insert(struct Node *n, void *value,int (*compar)(const void *lhs,co
 
     return n;
 }
-void deleteNodeContent(struct Node *n) {
+void deleteNodeContent(struct Node_t *n) {
     if(n != NULL && n->data != NULL){
         free(n->data);
         n->data = NULL;
     }
 }
-struct Node *deleteNode(struct Node *x, void *value,int (*compar)(const void *lhs,const void *rhs),int deleteValue)
+struct Node_t *deleteNode(struct Node_t *x, void *value,int (*compar)(const void *lhs,const void *rhs),int deleteValue)
 {
     if (x == NULL)
     {
@@ -138,7 +138,7 @@ struct Node *deleteNode(struct Node *x, void *value,int (*compar)(const void *lh
 
     if (x->_right == NULL)
     {
-        struct Node *tmp = (x == NULL)? x : x->_left;
+        struct Node_t *tmp = (x == NULL)? x : x->_left;
         if (deleteValue) 
         {
             deleteNodeContent(x);
@@ -149,7 +149,7 @@ struct Node *deleteNode(struct Node *x, void *value,int (*compar)(const void *lh
     }
     else if (x->_left == NULL)
     {
-        struct Node *tmp = (x == NULL)? x : x->_right;
+        struct Node_t *tmp = (x == NULL)? x : x->_right;
         if (deleteValue) 
         {
             deleteNodeContent(x);
@@ -160,7 +160,7 @@ struct Node *deleteNode(struct Node *x, void *value,int (*compar)(const void *lh
         return tmp;
     }
 
-    struct Node *parentSuccessor = x,
+    struct Node_t *parentSuccessor = x,
                 *successor = x->_right,
                 *T1 = x->_left,
                 *T2 = successor->_right,
@@ -195,7 +195,7 @@ struct Node *deleteNode(struct Node *x, void *value,int (*compar)(const void *lh
     return successor;
 }
 
-void inOrderVist(struct Node *n,char *(*toString)(const void *))
+void inOrderVist(struct Node_t *n,char *(*toString)(const void *))
 {
     if (n == NULL)
     {
@@ -211,7 +211,7 @@ void inOrderVist(struct Node *n,char *(*toString)(const void *))
 }
 
 
-void clear(struct Node **root,int deleteValue)
+void clear(struct Node_t **root,int deleteValue)
 {
 
     if(*root == NULL) 

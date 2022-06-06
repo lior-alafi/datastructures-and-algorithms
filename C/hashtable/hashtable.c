@@ -1,12 +1,9 @@
-#include "hashtable.h"
 #include <string.h>
 #include <stdlib.h>
 #include <string.h>
+#include "hashtable.h"
 
-struct hashChain_t {
-    const char *key;
-    void *value;
-};
+
 int hashFunc(const char *key)
 {
     int hash = 0;
@@ -26,11 +23,28 @@ struct hashChain_t *makeChainElement(const char* key, void *value)
     }
     chain->value = value;
     chain->key = calloc(sizeof(char),strlen(key)+1);
-    strncpy(chain->key,key,strlen(key));
+    strncpy(chain->key,key,strlen(key)+1);
 
     return chain;
 }
+struct hashtable_t* hashInit(struct hashtable_t *tbl)
+{
+    if(tbl == NULL)
+    {
+       
+            return NULL;
+        // }
+    }
 
+    for (int i = 0; i < MAX_HASH_TABLE_SIZE; i++)
+    {
+        tbl->l[i].head = NULL;
+        tbl->l[i].size = 0;
+    }
+
+    return tbl;
+    
+}
 void hashInsert(struct hashtable_t *tbl,const char *key,void *data)
 {
     if(tbl == NULL)
@@ -38,7 +52,7 @@ void hashInsert(struct hashtable_t *tbl,const char *key,void *data)
         tbl = malloc(sizeof(struct hashtable_t));
         if(!tbl)
         {
-            return NULL;
+            return;
         }
     }
 
@@ -47,11 +61,11 @@ void hashInsert(struct hashtable_t *tbl,const char *key,void *data)
 
 int hashcompare(const void *lhs,const void *rhs)
 {
-    return strncmp(((struct hashChain_t*)lhs)->key,rhs);
+    return strcmp(((struct hashChain_t*)lhs)->key,rhs);
 }
 
 
-struct node ** hashFindAux(struct hashtable_t *tbl, const char *key)
+struct node_t ** hashFindAux(struct hashtable_t *tbl, const char *key)
 {
    if (tbl == NULL || strlen(key) == 0 )
     {
@@ -59,7 +73,7 @@ struct node ** hashFindAux(struct hashtable_t *tbl, const char *key)
     }
 
     int idx = hashFunc(key);
-    struct node **n = find(&(tbl->l[idx]),key,hashcompare);
+    struct node_t **n = find(&(tbl->l[idx]),key,hashcompare);
     if(n == NULL || *n == NULL)
     {
         return NULL;
@@ -70,7 +84,7 @@ struct node ** hashFindAux(struct hashtable_t *tbl, const char *key)
 void* hashFind(struct hashtable_t *tbl, const char *key)
 {
   
-    struct node **n = hashFindAux(tbl,key);
+    struct node_t **n = hashFindAux(tbl,key);
     if(n == NULL || *n == NULL || (*n)->data == NULL)
     {   
        return NULL;
@@ -81,14 +95,14 @@ void* hashFind(struct hashtable_t *tbl, const char *key)
 
 void * hashRemove(struct hashtable_t *tbl, const char *key,int deleteData)
 {
-    struct node **n = hashFindAux(tbl,key);
+    struct node_t **n = hashFindAux(tbl,key);
     if(n == NULL || *n == NULL || (*n)->data == NULL)
     {   
        return NULL;
     }
     struct hashChain_t *tmp =(*n)->data;
     free(tmp->key);
-    void removeNode(struct list *l,struct node **n);
+    void removeNode(struct list_t *l,struct node_t **n);
     void* data= tmp->value;
     free(tmp);
     if(!deleteData)

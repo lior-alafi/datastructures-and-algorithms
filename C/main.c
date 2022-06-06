@@ -1,12 +1,21 @@
 #include <stdio.h>
 #include "cfgs.h"
-#include "List/List.h"
+// #include "List/List.h"
 #include "AVLTree/avl.h"
+#include "hashtable/hashtable.h"
+#include <string.h>
+typedef struct Person_t{
+    int age;
+    char  name[10];
+} Person;
+
+
 
 void listRoutine();
 void avlRoutine();
 void* Int(int v);
 int intCompare(const void *lhs,const void *rhs);
+void hashRoutine();
 
 int main(int argc, char *argv[])
 {
@@ -14,11 +23,25 @@ int main(int argc, char *argv[])
     {
         printf("%s VERSION %d.%d\n", argv[0], Tutorial_VERSION_MAJOR, Tutorial_VERSION_MINOR);
     }
-    listRoutine();
+    // listRoutine();
     // avlRoutine();
+    hashRoutine();
     return 0;
 }
 
+
+
+void hashRoutine()
+{
+    struct hashtable_t tbl;
+    Person lior;
+    strcpy(lior.name,"Lior Alafi");
+    lior.age = 36;
+    hashInit(&tbl);
+    hashInsert(&tbl,"lior",&lior);
+
+
+}
 
 void* Int(int v) {
    int *ptr = malloc(sizeof(int));
@@ -46,7 +69,7 @@ char * int2str(const void *v)
 
 void avlRoutine()
 {
-    struct Node *root = NULL;
+    struct Node_t *root = NULL;
     root = insert(root,Int(5),intCompare);
     root = insert(root,Int(2),intCompare);
     root = insert(root,Int(7),intCompare);
@@ -64,7 +87,7 @@ void avlRoutine()
 
 void listRoutine()
 {
-    struct list *l = init();
+    struct list_t *l = init();
     removeNode(l, &(l->head));
     for (size_t i = 0; i < 5; i++)
     {
@@ -80,7 +103,7 @@ void listRoutine()
     printList(l,int2str);
     reverse(l);
     printList(l,int2str);
-    struct node **n;
+    struct node_t **n;
 
     // int findme = 4;
     // n = find(l, &findme,intCompare);
