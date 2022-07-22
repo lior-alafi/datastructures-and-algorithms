@@ -17,6 +17,11 @@ void* Int(int v);
 int intCompare(const void *lhs,const void *rhs);
 void hashRoutine();
 
+void simpleDelete(void *data) {
+    free(data);
+}
+
+
 int main(int argc, char *argv[])
 {
     if (argc < 2)
@@ -39,6 +44,7 @@ void hashRoutine()
     lior.age = 36;
     hashInit(&tbl);
     hashInsert(&tbl,"lior",&lior);
+    hashRemove(&tbl,"lior",simpleDelete);
 
 
 }
@@ -88,10 +94,9 @@ void avlRoutine()
 void listRoutine()
 {
     struct list_t *l = init();
-    removeNode(l, &(l->head));
+    removeNode(l, &(l->head),simpleDelete);
     for (size_t i = 0; i < 5; i++)
     {
-        
         add(l,Int(i));
     }
     int *p = malloc(sizeof(int));
@@ -138,6 +143,6 @@ void listRoutine()
     // removeNode(l, n);
     // free(p);
 
-    clearList(l,1);
+    clearList(l,simpleDelete);
     free(l);
 }

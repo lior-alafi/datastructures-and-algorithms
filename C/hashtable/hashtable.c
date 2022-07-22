@@ -93,7 +93,7 @@ void* hashFind(struct hashtable_t *tbl, const char *key)
     return ((struct hashChain_t*)((*n)->data))->value;
 }
 
-void * hashRemove(struct hashtable_t *tbl, const char *key,int deleteData)
+void * hashRemove(struct hashtable_t *tbl, const char *key,void (*deleteF)(void* data))
 {
     struct node_t **n = hashFindAux(tbl,key);
     if(n == NULL || *n == NULL || (*n)->data == NULL)
@@ -102,14 +102,13 @@ void * hashRemove(struct hashtable_t *tbl, const char *key,int deleteData)
     }
     struct hashChain_t *tmp =(*n)->data;
     free(tmp->key);
-    void removeNode(struct list_t *l,struct node_t **n);
     void* data= tmp->value;
-    free(tmp);
-    if(!deleteData)
+    removeNode(tbl->l,n,deleteF);
+    if(deleteF == NULL)
     { 
         return data;
     }
 
-    free(data);
+    deleteF(data);
     return NULL;
 }

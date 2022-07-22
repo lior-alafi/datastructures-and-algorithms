@@ -47,9 +47,12 @@ struct node_t **find(struct list_t *l,void* value,int (*compar)(const void* lhs,
         return NULL;
 
 }
-void removeNode(struct list_t *l,struct node_t **n){
+void removeNode(struct list_t *l,struct node_t **n,void (*deleteF)(void* data)){
     if(n == NULL || *n == NULL) return;
     struct node_t *tmp = *n;
+    if (deleteF != NULL) {
+        deleteF(tmp->data);
+    }
     *n = ((*n)->_next);
     free(tmp);
     --l->size;
@@ -97,7 +100,7 @@ void reverse(struct list_t *l)
 }
 
 
-void clearList(struct list_t *l,int deleteValues)
+void clearList(struct list_t *l,void (*deleteF)(void* data))
 {
     if(!l) 
     {
@@ -108,9 +111,9 @@ void clearList(struct list_t *l,int deleteValues)
     {
         struct node_t *tmp = l->head;
         l->head = l->head->_next;
-        if(deleteValues)
+        if(deleteF != NULL)
         {
-            free(tmp->data);
+            deleteF(tmp->data);
         }
         free(tmp);
         --(l->size);
